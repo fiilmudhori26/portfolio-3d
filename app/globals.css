@@ -5,6 +5,8 @@
 @layer base {
   html {
     scrollbar-gutter: stable;
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -38,6 +40,8 @@
     position: relative;
     overflow: hidden;
     padding: 3rem 1.25rem;
+    scroll-snap-align: start;
+    scroll-margin-top: 4rem;
   }
   @media (min-width: 768px) {
     .section-full {
@@ -185,6 +189,10 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  html {
+    scroll-behavior: auto !important;
+    scroll-snap-type: none !important;
   }
   .anim-hidden {
     opacity: 1 !important;
