@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <FullpageProvider>
       <LoadingScreen />
-      <div className="section-overlay" id="sectionOverlay" />
+      <div className="section-overlay" id="sectionOverlay" aria-hidden="true" />
       <Navbar />
       <Sidebar />
       <main className="min-h-screen">

@@ -8,7 +8,7 @@ function SkillBar({ name, level }: { name: string; level: number }) {
     <div className="mb-3">
       <div className="flex justify-between mb-1.5">
         <span className="text-xs font-medium text-foreground/80">{name}</span>
-        <span className="text-xs text-muted">{level}%</span>
+        <span className="text-xs font-semibold text-foreground/70">{level}%</span>
       </div>
       <div className="skill-bar">
         <div

@@ -18,34 +18,46 @@ export default function Projects() {
           </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
           {projects.map((p, idx) => (
             <div
               key={p.id}
-              className={`card-subtle anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'}`}
+              className={`card-subtle anim-hidden-gpu flex flex-col min-h-[230px] ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'}`}
               style={{ transitionDelay: `${150 + idx * 100}ms` }}
             >
-              <div className="flex items-start justify-between mb-3">
-                <h3 className="font-display text-lg font-bold">{p.title}</h3>
-                <div className="flex gap-2">
-                  {p.github && (
-                    <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="text-muted hover:text-accent transition-colors">
-                      <Github className="w-4 h-4" />
-                    </a>
-                  )}
-                  {p.live !== '#' && (
-                    <a href={p.live} target="_blank" rel="noopener noreferrer" aria-label="Live site" className="text-muted hover:text-accent transition-colors">
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-              </div>
-              <p className="text-xs text-muted/60 font-medium tracking-wider uppercase mb-2">{p.tagline}</p>
+              <h3 className="font-display text-lg font-bold leading-snug">{p.title}</h3>
+              <p className="text-xs text-muted font-medium tracking-wider uppercase mt-1.5 mb-2">{p.tagline}</p>
               <p className="text-sm text-muted leading-relaxed mb-4">{p.description}</p>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1.5 mb-4">
                 {p.tech.map((t) => (
-                  <span key={t} className="text-[10px] px-2 py-1 rounded-md bg-surface-2 border border-border text-muted/70 font-medium">{t}</span>
+                  <span key={t} className="text-[10px] px-2 py-1 rounded-md bg-surface-2 border border-border text-foreground/70 font-medium">{t}</span>
                 ))}
+              </div>
+              <div className="mt-auto flex items-center gap-2 pt-3 border-t border-border">
+                {p.github && (
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View ${p.title} source code on GitHub`}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-foreground/80 hover:text-accent border border-border hover:border-accent/60 rounded-lg transition-colors no-underline min-h-[40px]"
+                  >
+                    <Github className="w-4 h-4" aria-hidden="true" />
+                    Code
+                  </a>
+                )}
+                {p.live !== '#' && (
+                  <a
+                    href={p.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open ${p.title} live demo`}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-accent border border-accent/40 hover:border-accent hover:bg-accent/10 rounded-lg transition-colors no-underline min-h-[40px]"
+                  >
+                    <ExternalLink className="w-4 h-4" aria-hidden="true" />
+                    Demo
+                  </a>
+                )}
               </div>
             </div>
           ))}

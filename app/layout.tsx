@@ -3,8 +3,9 @@ import './globals.css'
 import { personalInfo } from '@/lib/data'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://portfolio-3d-tau-eight.vercel.app'),
   title: `${personalInfo.name} · Web Developer & Digital Marketing`,
-  description: `Portfolio of ${personalInfo.name} — ${personalInfo.title}. Building modern web applications with Next.js, TypeScript, and Supabase.`,
+  description: `Portfolio of ${personalInfo.name} — ${personalInfo.title}. Building modern web applications with Next.js, TypeScript, Prisma/Drizzle, and PostgreSQL.`,
   keywords: [
     'Rahmad Akbar', 'Web Developer', 'Frontend Developer', 'Next.js',
     'TypeScript', 'Digital Marketing', 'Content Creator', 'Portfolio', 'Indonesia',
@@ -13,8 +14,8 @@ export const metadata: Metadata = {
   creator: personalInfo.name,
   openGraph: {
     title: `${personalInfo.name} · Portfolio`,
-    description: `${personalInfo.title} — Building modern web solutions with Next.js, TypeScript, and Supabase.`,
-    url: 'https://rahmad-portfolio.vercel.app',
+    description: `${personalInfo.title} — Building modern web solutions with Next.js, TypeScript, Prisma/Drizzle, and PostgreSQL.`,
+    url: 'https://portfolio-3d-tau-eight.vercel.app',
     siteName: `${personalInfo.name} Portfolio`,
     locale: 'en_US',
     type: 'website',
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: `${personalInfo.name} · Portfolio`,
-    description: `${personalInfo.title} — Building modern web solutions.`,
+    description: `${personalInfo.title} — Building modern web solutions with Next.js, TypeScript, Prisma/Drizzle, and PostgreSQL.`,
   },
   robots: { index: true, follow: true },
 }

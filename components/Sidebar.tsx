@@ -11,6 +11,8 @@ const icons = [
   { section: 5, icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
 ]
 
+const sectionNames = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact']
+
 export default function Sidebar() {
   const { currentSection, goToSection } = useFullpage()
 
@@ -20,8 +22,9 @@ export default function Sidebar() {
         <button
           key={section}
           onClick={() => goToSection(section)}
-          aria-label={`Go to section ${section}`}
-          className="relative flex items-center justify-center w-10 h-10 bg-none border-none text-[#f9fafb] text-xl cursor-pointer transition-transform duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
+          aria-label={`Go to ${sectionNames[section]} section`}
+          aria-current={currentSection === section ? 'true' : undefined}
+          className={`relative flex items-center justify-center w-10 h-10 bg-none border-none text-xl cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-xl ${currentSection === section ? 'text-accent' : 'text-[#f9fafb]'}`}
           style={{ transform: currentSection === section ? 'scale(1.1)' : 'scale(1)' }}
         >
           <span

@@ -281,7 +281,7 @@ function SkillGroup({ groupKey }: { groupKey: string }) {
         {items.map((s) => (
           <div key={s.name} className="flex flex-col items-center gap-1">
             <TechIcon name={s.name} />
-            <span className="text-[8px] md:text-[9px] text-muted/60 font-medium text-center leading-tight max-w-[52px] md:max-w-[56px]">{s.name}</span>
+            <span className="text-[10px] md:text-[11px] text-foreground/60 font-medium text-center leading-tight max-w-[52px] md:max-w-[56px]">{s.name}</span>
           </div>
         ))}
       </div>
