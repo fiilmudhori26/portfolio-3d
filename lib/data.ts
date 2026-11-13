@@ -13,7 +13,7 @@ export const personalInfo = {
     linkedin: 'https://www.linkedin.com/in/Rahmadakbar',
     tiktok: 'https://www.tiktok.com/@_arvyn24',
   },
-  cvDownload: '/CV_Rahmad_Akbar.docx',
+  cvDownload: '/CV_Rahmad_Akbar.pdf',
 }
 
 export const about = {
@@ -360,29 +360,9 @@ export const awards = [
   },
 ]
 
-export const testimonials = [
-  {
-    id: 'placeholder-1',
-    name: 'Client Name',
-    role: 'Position',
-    company: 'Company',
-    text: 'Testimonial coming soon. This space will feature feedback from collaborators and clients.',
-    avatar: '',
-  },
-]
-
-export const navLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Contact', href: '#contact' },
-]
-
 export const stats = [
-  { label: 'Projects Built', value: 8, suffix: '+' },
-  { label: 'Years Learning', value: 3, suffix: '+' },
-  { label: 'Tech Stack', value: 15, suffix: '+' },
-  { label: 'Quran Memorized', value: 30, suffix: ' Juz' },
+  { label: 'Proyek live', value: 10, suffix: '+' },
+  { label: 'Tahun ngoding', value: 4, suffix: '+' },
+  { label: 'Stack', value: 23, suffix: '' },
+  { label: 'Juz dihafal', value: 30, suffix: '' },
 ]

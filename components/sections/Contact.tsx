@@ -2,6 +2,7 @@
 
 import { personalInfo } from '@/lib/data'
 import { useIntersectionShow } from '@/lib/hooks'
+import ContactForm from './ContactForm'
 
 const socialLinks = [
   { href: personalInfo.social.github, label: 'GitHub' },
@@ -30,6 +31,8 @@ export default function Contact() {
           {personalInfo.email}
         </a>
 
+        <ContactForm />
+
         <div className="flex flex-wrap items-center gap-3 mt-8">
           <a href={personalInfo.cvDownload || '#'} download className="btn btn-ink">
             Download CV
@@ -55,7 +58,7 @@ export default function Contact() {
           <div className="md:text-right">
             <p className="label-mono !text-[10px]">Colophon</p>
             <p className="text-xs text-muted leading-relaxed mt-3 max-w-xs md:ml-auto">
-              © {new Date().getFullYear()} Rahmad Akbar · Disetel dalam Fraunces, Inter &amp; JetBrains Mono · Jember, Indonesia · Semua project handmade.
+              © {new Date().getFullYear()} Rahmad Akbar · Disetel dalam Fraunces, Inter &amp; JetBrains Mono · Jember, Indonesia · Semua project handmade.<br /><br />Referensi (guru, dosen, mentor) tersedia atas permintaan.
             </p>
           </div>
         </div>
