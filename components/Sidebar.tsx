@@ -2,15 +2,9 @@
 
 import { useState } from 'react'
 import { useFullpage } from '@/components/FullpageProvider'
+import { SECTION_ICONS } from '@/components/icons'
 
-const icons = [
-  { section: 0, icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-  { section: 1, icon: 'M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z' },
-  { section: 2, icon: 'M12 2l2.5 7H22l-6 4.5L18 22l-6-5-6 5 2-8.5L2 9h7.5L12 2z' },
-  { section: 3, icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4' },
-  { section: 4, icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z' },
-]
-
+const sectionKeys = ['about', 'work', 'skills', 'journey', 'contact'] as const
 const sectionNames = ['About', 'Work', 'Skills', 'Journey', 'Contact']
 const sectionHrefs = ['#about', '#work', '#skills', '#journey', '#contact']
 
@@ -20,7 +14,7 @@ export default function Sidebar() {
 
   return (
     <div className="hidden md:flex fixed left-4 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-1.5 rounded-full border border-line bg-paper/90 backdrop-blur px-1 py-3">
-      {icons.map(({ section, icon }) => {
+      {sectionKeys.map((key, section) => {
         const isActive = currentSection === section
         const isHovered = hovered === section
 
@@ -44,9 +38,9 @@ export default function Sidebar() {
             >
               {sectionNames[section]}
             </span>
-            <svg xmlns="http://www.w3.org/2000/svg" className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d={icon} />
-            </svg>
+            <span className="w-[18px] h-[18px] [&>svg]:w-full [&>svg]:h-full" aria-hidden="true">
+              {SECTION_ICONS[key]}
+            </span>
           </a>
         )
       })}

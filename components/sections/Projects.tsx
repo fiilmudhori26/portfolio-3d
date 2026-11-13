@@ -4,6 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { projects } from '@/lib/data'
 import { useIntersectionShow } from '@/lib/hooks'
+import { PROJECT_ICONS } from '@/components/icons'
 
 const ORDER = [
   'simulasi-cpns',
@@ -89,6 +90,9 @@ export default function Projects() {
               {/* Kolom teks */}
               <div className={`col-span-12 md:col-span-4 ${flip ? 'md:order-2' : ''}`}>
                 <p className="font-display font-black leading-none text-6xl md:text-7xl text-accent/90 tracking-[-0.04em]">{num}</p>
+                <span className="block mt-3 w-7 h-7 text-ink [&>svg]:w-full [&>svg]:h-full" aria-hidden="true">
+                  {PROJECT_ICONS[p.id]}
+                </span>
                 <h3 className="font-display italic font-black tracking-[-0.02em] leading-[0.98] text-3xl sm:text-4xl lg:text-5xl text-ink mt-4">
                   {p.title}
                 </h3>

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useFullpage } from '@/components/FullpageProvider'
 import MenuOverlay from '@/components/MenuOverlay'
+import { PersonalMark } from '@/components/icons'
 
 const navItems = [
   { label: 'About', section: 0, href: '#about' },
@@ -28,8 +29,9 @@ export default function Navbar() {
           scrolled ? 'bg-paper/90 backdrop-blur-md border-line' : 'bg-transparent border-transparent'
         }`}
       >
-        <a href="#about" className="font-display italic font-black text-xl sm:text-2xl tracking-[-0.02em] text-ink no-underline rounded-sm">
-          Rahmad Akbar
+        <a href="#about" className="flex items-center gap-2 font-display italic font-black text-xl sm:text-2xl tracking-[-0.02em] text-ink no-underline rounded-sm">
+          <PersonalMark className="w-7 h-7 sm:w-8 sm:h-8 text-accent shrink-0" />
+          <span>Rahmad Akbar</span>
         </a>
 
         <nav aria-label="Primary" className="hidden md:flex items-center gap-9">
