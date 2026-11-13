@@ -12,34 +12,23 @@ export default function LoadingScreen() {
 
   return (
     <div
-      className={`fixed inset-0 flex flex-col justify-center items-center gap-6 bg-border z-[999] transition-all duration-500 ${
+      className={`fixed inset-0 flex flex-col justify-center items-center gap-4 bg-black z-[999] transition-all duration-500 ${
         hide ? 'opacity-0 scale-105 pointer-events-none' : ''
       }`}
+      aria-hidden={hide}
     >
-      <svg
-        className="w-12 h-12"
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
+      <span
+        className="font-sans font-black text-5xl md:text-6xl tracking-[-0.04em] text-foreground select-none"
         style={{
           opacity: hide ? 0 : 1,
-          transform: hide ? 'scale(0.8) rotate(-10deg)' : 'scale(1) rotate(0deg)',
+          transform: hide ? 'scale(0.92)' : 'scale(1)',
           transition: 'opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)',
         }}
       >
-        <path d="M50 5L5 95h90L50 5z" stroke="#10B981" strokeWidth="1.5" fill="none" />
-        <circle cx="50" cy="14" r="3" fill="#10B981" opacity="0.9" />
-      </svg>
-      <span
-        className="font-sans font-light text-xs tracking-[0.4em] uppercase text-muted"
-        style={{
-          opacity: hide ? 0 : 1,
-          transform: hide ? 'translateY(8px)' : 'translateY(0)',
-          transition: 'opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s',
-        }}
-      >
-        Loading
+        RAHMAD<span className="text-pink">.</span>
+      </span>
+      <span className="label-mono" style={{ opacity: hide ? 0 : 1, transition: 'opacity 0.6s ease 0.2s' }}>
+        Web Developer
       </span>
     </div>
   )

@@ -8,18 +8,22 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#0a0a0b',
-        surface: '#0a0a0a',
-        'surface-2': '#141414',
-        foreground: '#ffffff',
-        muted: '#8a8a8a',
-        border: '#242424',
-        accent: '#10B981',
-        'accent-2': '#F59E0B',
+        background: '#000000',
+        surface: '#0b0b0b',
+        'surface-2': '#111111',
+        foreground: '#f5f5f7',
+        ink: '#f5f5f7',
+        'ink-2': '#f5f5f7a8',
+        'ink-3': '#f5f5f76b',
+        border: 'rgba(255,255,255,.09)',
+        line: 'rgba(255,255,255,.09)',
+        pink: '#f92672',
+        'pink-deep': '#d1114f',
       },
       fontFamily: {
-        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
-        sans: ['Outfit', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        display: ['Rethink Sans', 'system-ui', 'sans-serif'],
+        sans: ['Rethink Sans', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+        mono: ['Geist Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       letterSpacing: {
         wide: '0.05em',
@@ -35,6 +39,7 @@ const config: Config = {
         'slide-up': 'slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1)',
         'pop-in': 'popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
         'progress-fill': 'progressFill 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards',
+        'marquee': 'marquee 30s linear infinite',
       },
       keyframes: {
         scrollPulse: {
@@ -57,9 +62,14 @@ const config: Config = {
           '0%': { width: '0%' },
           '100%': { width: 'var(--progress-width)' },
         },
+        marquee: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
+        },
       },
     },
   },
   plugins: [],
 }
+
 export default config

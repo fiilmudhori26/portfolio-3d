@@ -21,10 +21,10 @@ export default function Sidebar() {
   const pct = totalSections <= 1 ? 100 : Math.round((currentSection / (totalSections - 1)) * 100)
 
   return (
-    <div className="hidden md:flex fixed left-0 top-[25%] z-40 bg-surface border-r border-border h-[50vh] w-14 flex-col justify-evenly items-center p-4 rounded-r-2xl text-[#f9fafb]">
+    <div className="hidden md:flex fixed left-0 top-[25%] z-40 bg-surface border-r border-border h-[50vh] w-14 flex-col justify-evenly items-center p-4 rounded-r-2xl text-ink">
       {/* Scroll progress — sisi kiri container */}
       <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-border pointer-events-none" aria-hidden="true">
-        <div className="w-full bg-accent transition-all duration-500 ease-out" style={{ height: `${pct}%` }} />
+        <div className="w-full bg-pink transition-all duration-500 ease-out" style={{ height: `${pct}%` }} />
       </div>
 
       {icons.map(({ section, icon }) => {
@@ -42,8 +42,8 @@ export default function Sidebar() {
             onBlur={() => setHovered(null)}
             aria-label={`Go to ${sectionNames[section]} section`}
             aria-current={isActive ? 'true' : undefined}
-            className={`group relative flex items-center justify-center w-10 h-10 border-none text-xl cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
-              isActive || isHovered ? 'text-accent bg-accent/10' : 'text-[#f9fafb] bg-none'
+            className={`group relative flex items-center justify-center w-10 h-10 border-none text-xl cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink ${
+              isActive || isHovered ? 'text-pink bg-pink/10' : 'text-ink bg-none'
             }`}
             style={{ transform: `scale(${scale})` }}
           >
@@ -56,7 +56,7 @@ export default function Sidebar() {
             </span>
 
             <span
-              className="absolute inset-0 bg-accent/20 rounded-xl transition-opacity duration-250 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none"
+              className="absolute inset-0 bg-pink/20 rounded-xl transition-opacity duration-250 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none"
               style={{ opacity: isActive ? 1 : 0 }}
             />
             <svg xmlns="http://www.w3.org/2000/svg" className="relative z-[1] w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">

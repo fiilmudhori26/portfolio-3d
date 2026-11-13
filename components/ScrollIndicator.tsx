@@ -12,8 +12,8 @@ export default function ScrollIndicator() {
         show ? 'opacity-100' : 'opacity-0'
       }`}
     >
-      <span className="text-[10px] uppercase tracking-[4px] text-muted font-medium font-display">Scroll</span>
-      <div className="w-[1.5px] h-14 bg-muted origin-top animate-scroll-pulse" />
+      <span className="text-[10px] uppercase tracking-[4px] text-ink-2 font-medium font-display">Scroll</span>
+      <div className="w-[1.5px] h-14 bg-ink-2 origin-top animate-scroll-pulse" />
     </div>
   )
 }

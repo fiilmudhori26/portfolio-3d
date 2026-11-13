@@ -54,8 +54,8 @@ export default function MenuOverlay({
         transition: 'clip-path 0.6s ease, visibility 0.6s',
       }}
     >
-      <div className="bg-background/95 border-l border-border flex flex-col items-center justify-center min-h-screen min-w-full gap-8">
-        <h1 className="font-display font-bold text-6xl text-foreground menu-item">Menu</h1>
+      <div className="bg-black/95 flex flex-col items-center justify-center min-h-screen min-w-full gap-6">
+        <p className="label-mono mb-2">Navigation</p>
         {labels.map((label, i) => {
           const isActive = currentSection === i
           return (
@@ -70,10 +70,8 @@ export default function MenuOverlay({
                 goToSection(i)
                 onClose()
               }}
-              className={`relative text-2xl font-bold no-underline pb-1 transition-colors duration-200 ${
-                isActive
-                  ? 'text-accent after:absolute after:left-0 after:-bottom-1 after:h-[3px] after:w-full after:rounded-full after:bg-accent'
-                  : 'text-foreground hover:text-accent'
+              className={`relative font-sans font-black text-4xl md:text-5xl tracking-[-0.03em] leading-none no-underline pb-1 transition-colors duration-200 ${
+                isActive ? 'text-pink' : 'text-foreground hover:text-pink'
               }`}
               style={{
                 opacity: 0,

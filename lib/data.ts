@@ -3,7 +3,7 @@ export const personalInfo = {
   initials: 'RA',
   avatar: '/images/profile.png',
   title: 'Web Developer & Digital Marketing',
-  tagline: 'Santri Developer | Hafidz 30 Juz | Membangun solusi digital dengan teknologi modern',
+  tagline: 'Santri Developer · Hafidz 30 Juz · Membangun solusi digital modern',
   email: 'rahmad26akbar@gmail.com',
   phone: '+62 882 0083 21724',
   location: 'Jember, Jawa Timur, Indonesia',
