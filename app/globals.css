@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scrollbar-gutter: stable;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    font-size: clamp(13px, 0.89vw, 17px);
+    line-height: 1.7;
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+  }
+  body.fullpage-active {
+    overflow: hidden;
+  }
+  body.fullpage-active::-webkit-scrollbar,
+  html:has(body.fullpage-active)::-webkit-scrollbar {
+    display: none;
+  }
+  ::selection {
+    @apply bg-accent/20 text-foreground;
+  }
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-accent/50;
+  }
+}
+
+@layer components {
+  .section-full {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .section-full {
+      padding: 4rem 4rem;
+    }
+  }
+
+  .section-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    background: #000000;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .section-overlay.active {
+    opacity: 1;
+  }
+
+  .perspective {
+    perspective: 1000px;
+  }
+
+  /* Button styles */
+  .btn {
+    padding: 0.5rem 2rem;
+    border-radius: 1rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease,
+      transform 0.15s ease, box-shadow 0.2s ease;
+    border: 2px solid transparent;
+    transform: translateY(0) scale(1);
+    cursor: pointer;
+  }
+  .btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+  .btn-primary:hover {
+    background: transparent;
+    border-color: #10B981;
+    color: #10B981;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: #10B981;
+    border-color: #10B981;
+  }
+  .btn-secondary:hover {
+    background: #10B981;
+    color: #04140c;
+  }
+  .btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Progress bar skills */
+  .skill-bar {
+    width: 100%;
+    height: 6px;
+    background: #141414;
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #10B981, #F59E0B);
+    width: 0%;
+    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Timeline */
+  .timeline-line {
+    position: absolute;
+    left: 8px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: #242424;
+  }
+
+  /* Card hover */
+  .card-subtle {
+    background: #0a0a0a;
+    border: 1px solid #242424;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: border-color 0.3s ease, transform 0.3s ease;
+  }
+  .card-subtle:hover {
+    border-color: #10B981;
+    transform: translateY(-4px);
+  }
+  .card-subtle:active {
+    transform: translateY(-2px) scale(0.99);
+  }
+}
+
+@layer utilities {
+  .anim-hidden {
+    opacity: 0;
+  }
+  .anim-left {
+    transform: translateX(-60px);
+  }
+  .anim-right {
+    transform: translateX(60px);
+  }
+  .anim-up {
+    transform: translateY(30px);
+  }
+  .anim-visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0) translateZ(0);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .anim-hidden-gpu {
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+  .anim-visible-gpu {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+    transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .anim-hidden {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
