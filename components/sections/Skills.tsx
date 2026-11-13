@@ -2,6 +2,7 @@
 
 import { skills as skillsData } from '@/lib/data'
 import { useIntersectionShow } from '@/lib/hooks'
+import { SKILL_ICONS } from '@/components/icons'
 
 const COLUMNS: Array<{ label: string; groups: Array<keyof typeof skillsData>; note: string }> = [
   { label: 'Frontend', groups: ['frontend'], note: 'Antarmuka & pengalaman pengguna' },
@@ -40,8 +41,11 @@ export default function Skills() {
                   {items.map((s) => (
                     <li
                       key={s.name}
-                      className="border-t border-line py-2.5 first:border-t-0"
+                      className="flex items-center gap-3 border-t border-line py-2.5 first:border-t-0"
                     >
+                      <span className="w-5 h-5 flex-shrink-0 text-accent [&>svg]:w-full [&>svg]:h-full" aria-hidden="true">
+                        {SKILL_ICONS[s.name]?.() ?? null}
+                      </span>
                       <span className="font-display font-semibold text-lg text-ink leading-tight">{s.name}</span>
                     </li>
                   ))}

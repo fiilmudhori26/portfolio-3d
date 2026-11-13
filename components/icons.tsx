@@ -94,6 +94,167 @@ export const SECTION_ICONS = {
 
 export type SectionIconKey = keyof typeof SECTION_ICONS
 
+/* ── Skill icons ───────────────────────────────────────────── */
+
+export const SKILL_ICONS: Record<string, () => JSX.Element> = {
+  JavaScript: () => (
+    <LineIcon>
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <path d="M9 16.5v-6M9 13h3.5a2 2 0 0 1 0 4H9" />
+    </LineIcon>
+  ),
+  TypeScript: () => (
+    <LineIcon>
+      <rect x="4" y="4" width="16" height="16" rx="2" />
+      <path d="M8.5 10h7M12 10v7" />
+    </LineIcon>
+  ),
+  'Next.js': () => (
+    <LineIcon>
+      <circle cx="12" cy="12" r="8" />
+      <path d="M9.5 15.5L15 9.5M9.5 9.5v6M15 9.5v6" />
+    </LineIcon>
+  ),
+  React: () => (
+    <LineIcon>
+      <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+      <ellipse cx="12" cy="12" rx="10" ry="4" />
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)" />
+      <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)" />
+    </LineIcon>
+  ),
+  'Tailwind CSS': () => (
+    <LineIcon>
+      <path d="M4 10c1.5-2.5 3-2.5 4.5 0s3 2.5 4.5 0 3-2.5 4.5 0" />
+      <path d="M4 15c1.5-2.5 3-2.5 4.5 0s3 2.5 4.5 0 3-2.5 4.5 0" />
+    </LineIcon>
+  ),
+  'HTML/CSS': () => (
+    <LineIcon>
+      <path d="M8.5 8L4.5 12l4 4" />
+      <path d="M15.5 8l4 4-4 4" />
+      <path d="M13 6.5l-2 11" />
+    </LineIcon>
+  ),
+  'Node.js': () => (
+    <LineIcon>
+      <path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9z" />
+      <path d="M9.5 10.5v3a2.5 2.5 0 0 0 5 0v-3" />
+    </LineIcon>
+  ),
+  'Prisma ORM': () => (
+    <LineIcon>
+      <path d="M12 4l4.5 6-4.5 10L7.5 10z" />
+      <path d="M9.5 12h5" />
+    </LineIcon>
+  ),
+  Supabase: () => (
+    <LineIcon>
+      <path d="M13.5 3L7 14h4.5L10 21l7-11h-4.5z" />
+    </LineIcon>
+  ),
+  Fastify: () => (
+    <LineIcon>
+      <path d="M14.5 2L6.5 14.5H11L9 22l9-13h-4.5z" />
+    </LineIcon>
+  ),
+  Git: () => (
+    <LineIcon>
+      <circle cx="7" cy="7" r="2.25" />
+      <circle cx="7" cy="17" r="2.25" />
+      <circle cx="17" cy="10" r="2.25" />
+      <path d="M7 9.25v5.5" />
+      <path d="M7 9.25c0 3.6 2 4.4 5.5 4.4h2.2" />
+    </LineIcon>
+  ),
+  GitHub: () => (
+    <LineIcon>
+      <circle cx="12" cy="12" r="8.5" />
+      <circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none" />
+    </LineIcon>
+  ),
+  Vercel: () => (
+    <LineIcon>
+      <path d="M12 4l9 15.5H3z" />
+    </LineIcon>
+  ),
+  'VS Code': () => (
+    <LineIcon>
+      <path d="M8 8l-4.5 4 4.5 4" />
+      <path d="M16 8l4.5 4-4.5 4" />
+      <path d="M12.5 6.5l-1.5 11" />
+    </LineIcon>
+  ),
+  'Excel/Sheets': () => (
+    <LineIcon>
+      <rect x="4" y="4" width="16" height="16" rx="1.5" />
+      <path d="M4 10h16" />
+      <path d="M4 15h16" />
+      <path d="M10 4v16" />
+      <path d="M15 4v16" />
+    </LineIcon>
+  ),
+  SEO: () => (
+    <LineIcon>
+      <circle cx="11" cy="11" r="6" />
+      <path d="M15.5 15.5L20 20" />
+    </LineIcon>
+  ),
+  'Content Planning': () => (
+    <LineIcon>
+      <rect x="4" y="5" width="16" height="15" rx="2" />
+      <path d="M8 3v4" />
+      <path d="M16 3v4" />
+      <path d="M4 10h16" />
+      <path d="M8 14h3" />
+    </LineIcon>
+  ),
+  'Content Writing': () => (
+    <LineIcon>
+      <path d="M12 3l3.5 5L12 21l-3.5-13z" />
+      <path d="M12 9v6" />
+    </LineIcon>
+  ),
+  Copywriting: () => (
+    <LineIcon>
+      <rect x="8.5" y="8.5" width="11" height="11" rx="1.5" />
+      <path d="M5.5 15V5a1.5 1.5 0 0 1 1.5-1.5h10" />
+    </LineIcon>
+  ),
+  'Social Media Strategy': () => (
+    <LineIcon>
+      <circle cx="6" cy="12" r="2.2" />
+      <circle cx="17" cy="6" r="2.2" />
+      <circle cx="17" cy="18" r="2.2" />
+      <path d="M8 11l7-4" />
+      <path d="M8 13l7 4" />
+    </LineIcon>
+  ),
+  Canva: () => (
+    <LineIcon>
+      <circle cx="12" cy="12" r="8" />
+      <circle cx="9.5" cy="10.5" r="1.4" />
+      <path d="M14.5 13.5a3 3 0 0 0-4.5 2.5" />
+    </LineIcon>
+  ),
+  CapCut: () => (
+    <LineIcon>
+      <circle cx="6.5" cy="7" r="2.4" />
+      <circle cx="6.5" cy="17" r="2.4" />
+      <path d="M9 8.4L20 16.5" />
+      <path d="M9 15.6L20 7.5" />
+    </LineIcon>
+  ),
+  Figma: () => (
+    <LineIcon>
+      <path d="M9.5 4h5M9.5 12h5M9.5 20h5" />
+      <rect x="9.5" y="4" width="5" height="5" rx="1.5" />
+      <rect x="9.5" y="9.5" width="5" height="5" rx="1.5" />
+      <rect x="9.5" y="15" width="5" height="5" rx="1.5" />
+    </LineIcon>
+  ),
+}
+
 /* ── Project icons ─────────────────────────────────────────── */
 
 export const PROJECT_ICONS: Record<string, JSX.Element> = {
