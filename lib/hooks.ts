@@ -7,13 +7,17 @@ export function useIntersectionShow<T extends HTMLElement>() {
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
-      { threshold: 0.15 }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
+    if (!el) { setVisible(true); return }
+    try {
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
+        { threshold: 0.15 }
+      )
+      observer.observe(el)
+      return () => observer.disconnect()
+    } catch {
+      setVisible(true)
+    }
   }, [])
 
   return { ref, visible }
