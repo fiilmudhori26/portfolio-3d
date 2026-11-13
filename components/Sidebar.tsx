@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { useFullpage } from '@/components/FullpageProvider'
 
 const icons = [
@@ -14,28 +15,56 @@ const icons = [
 const sectionNames = ['Home', 'About', 'Skills', 'Projects', 'Experience', 'Contact']
 
 export default function Sidebar() {
-  const { currentSection, goToSection } = useFullpage()
+  const { currentSection, totalSections, goToSection } = useFullpage()
+  const [hovered, setHovered] = useState<number | null>(null)
+
+  const pct = totalSections <= 1 ? 100 : Math.round((currentSection / (totalSections - 1)) * 100)
 
   return (
     <div className="hidden md:flex fixed left-0 top-[25%] z-40 bg-surface border-r border-border h-[50vh] w-14 flex-col justify-evenly items-center p-4 rounded-r-2xl text-[#f9fafb]">
-      {icons.map(({ section, icon }) => (
-        <button
-          key={section}
-          onClick={() => goToSection(section)}
-          aria-label={`Go to ${sectionNames[section]} section`}
-          aria-current={currentSection === section ? 'true' : undefined}
-          className={`relative flex items-center justify-center w-10 h-10 bg-none border-none text-xl cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-xl ${currentSection === section ? 'text-accent' : 'text-[#f9fafb]'}`}
-          style={{ transform: currentSection === section ? 'scale(1.1)' : 'scale(1)' }}
-        >
-          <span
-            className="absolute inset-0 bg-accent/20 rounded-xl transition-opacity duration-250 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
-            style={{ opacity: currentSection === section ? 1 : 0 }}
-          />
-          <svg xmlns="http://www.w3.org/2000/svg" className="relative z-1 w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d={icon} />
-          </svg>
-        </button>
-      ))}
+      {/* Scroll progress — sisi kiri container */}
+      <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-border pointer-events-none" aria-hidden="true">
+        <div className="w-full bg-accent transition-all duration-500 ease-out" style={{ height: `${pct}%` }} />
+      </div>
+
+      {icons.map(({ section, icon }) => {
+        const isActive = currentSection === section
+        const isHovered = hovered === section
+        const scale = isHovered ? 1.15 : isActive ? 1.1 : 1
+
+        return (
+          <button
+            key={section}
+            onClick={() => goToSection(section)}
+            onMouseEnter={() => setHovered(section)}
+            onMouseLeave={() => setHovered(null)}
+            onFocus={() => setHovered(section)}
+            onBlur={() => setHovered(null)}
+            aria-label={`Go to ${sectionNames[section]} section`}
+            aria-current={isActive ? 'true' : undefined}
+            className={`group relative flex items-center justify-center w-10 h-10 border-none text-xl cursor-pointer transition-all duration-350 ease-[cubic-bezier(0.34,1.56,0.64,1)] rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+              isActive || isHovered ? 'text-accent bg-accent/10' : 'text-[#f9fafb] bg-none'
+            }`}
+            style={{ transform: `scale(${scale})` }}
+          >
+            {/* Tooltip — di kanan sidebar (sisi kiri di luar layar) */}
+            <span
+              aria-hidden="true"
+              className="absolute left-full top-1/2 -translate-y-1/2 ml-3 z-50 whitespace-nowrap rounded-md border border-border bg-surface-2 px-2.5 py-1.5 text-xs font-medium text-foreground opacity-0 translate-x-[-4px] pointer-events-none transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 group-focus-visible:opacity-100 group-focus-visible:translate-x-0"
+            >
+              {sectionNames[section]}
+            </span>
+
+            <span
+              className="absolute inset-0 bg-accent/20 rounded-xl transition-opacity duration-250 ease-[cubic-bezier(0.34,1.56,0.64,1)] pointer-events-none"
+              style={{ opacity: isActive ? 1 : 0 }}
+            />
+            <svg xmlns="http://www.w3.org/2000/svg" className="relative z-[1] w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" d={icon} />
+            </svg>
+          </button>
+        )
+      })}
     </div>
   )
 }
