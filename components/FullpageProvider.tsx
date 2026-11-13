@@ -71,7 +71,7 @@ export default function FullpageProvider({ children }: { children: ReactNode }) 
           }
         })
       },
-      { threshold: 0.35, rootMargin: '-4.5rem 0px 0px 0px' },
+      { threshold: 0.35, rootMargin: '-72px 0px 0px 0px' },
     )
     sections.forEach((s) => observer.observe(s))
     return () => observer.disconnect()
