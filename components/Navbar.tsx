@@ -5,14 +5,14 @@ import { useFullpage } from '@/components/FullpageProvider'
 import MenuOverlay from '@/components/MenuOverlay'
 
 const navItems = [
-  { label: 'About', section: 0 },
-  { label: 'Work', section: 1 },
-  { label: 'Skills', section: 2 },
-  { label: 'Contact', section: 4 },
+  { label: 'About', section: 0, href: '#about' },
+  { label: 'Work', section: 1, href: '#work' },
+  { label: 'Skills', section: 2, href: '#skills' },
+  { label: 'Contact', section: 4, href: '#contact' },
 ]
 
 export default function Navbar() {
-  const { currentSection, goToSection } = useFullpage()
+  const { currentSection } = useFullpage()
   const [menuOpen, setMenuOpen] = useState(false)
   const scrolled = currentSection > 0
 
@@ -28,11 +28,7 @@ export default function Navbar() {
           scrolled ? 'bg-paper/90 backdrop-blur-md border-line' : 'bg-transparent border-transparent'
         }`}
       >
-        <a
-          href="#about"
-          className="font-display italic font-black text-xl sm:text-2xl tracking-[-0.02em] text-ink no-underline rounded-sm"
-          onClick={(e) => { e.preventDefault(); goToSection(0) }}
-        >
+        <a href="#about" className="font-display italic font-black text-xl sm:text-2xl tracking-[-0.02em] text-ink no-underline rounded-sm">
           Rahmad Akbar
         </a>
 
@@ -40,16 +36,16 @@ export default function Navbar() {
           {navItems.map((item) => {
             const active = currentSection === item.section
             return (
-              <button
+              <a
                 key={item.label}
-                onClick={() => goToSection(item.section)}
+                href={item.href}
                 aria-current={active ? 'true' : undefined}
-                className={`label-mono !text-[10px] pb-0.5 border-b transition-colors duration-200 cursor-pointer bg-none border-none ${
+                className={`label-mono !text-[10px] pb-0.5 border-b transition-colors duration-200 cursor-pointer no-underline ${
                   active ? 'text-accent border-accent' : 'text-ink border-transparent hover:text-accent'
                 }`}
               >
                 {item.label}
-              </button>
+              </a>
             )
           })}
         </nav>

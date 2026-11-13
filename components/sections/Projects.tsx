@@ -47,9 +47,10 @@ function ProjectShot({ id, title, live }: { id: string; title: string; live: str
           onError={() => setError(true)}
         />
       ) : (
-        <div className="w-full aspect-[16/10] flex flex-col items-center justify-center gap-3 p-6 text-center bg-card">
-          <p className="font-display font-black italic text-3xl tracking-[-0.03em] text-ink">{title}</p>
-          <p className="label-mono">Lihat live →</p>
+        <div className="w-full aspect-[16/10] flex flex-col items-center justify-center gap-4 p-6 text-center bg-ink text-paper">
+          <span className="label-mono !text-[9px] text-paper/60">Source code only</span>
+          <p className="font-display font-black italic text-3xl sm:text-4xl leading-[0.95] tracking-[-0.03em] text-paper">{title}</p>
+          <p className="label-mono !text-[10px] text-paper/80">Buka repo di GitHub · bukan deploy publik</p>
         </div>
       )}
     </div>

@@ -12,7 +12,7 @@ export default function MenuOverlay({
   open: boolean
   onClose: () => void
 }) {
-  const { goToSection, currentSection } = useFullpage()
+  const { currentSection } = useFullpage()
   const itemsRef = useRef<(HTMLAnchorElement | null)[]>([])
 
   useEffect(() => {
@@ -55,14 +55,10 @@ export default function MenuOverlay({
               <a
                 key={label}
                 ref={(el) => { itemsRef.current[i] = el }}
-                href={`#section-${i}`}
+                href={['#about','#work','#skills','#journey','#contact'][i]}
                 tabIndex={open ? 0 : -1}
                 aria-current={isActive ? 'true' : undefined}
-                onClick={(e) => {
-                  e.preventDefault()
-                  goToSection(i)
-                  onClose()
-                }}
+                onClick={onClose}
                 className="group flex items-baseline gap-4 no-underline border-b border-line pb-4"
                 style={{
                   opacity: 0,

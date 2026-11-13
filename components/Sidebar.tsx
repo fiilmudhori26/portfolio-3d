@@ -12,9 +12,10 @@ const icons = [
 ]
 
 const sectionNames = ['About', 'Work', 'Skills', 'Journey', 'Contact']
+const sectionHrefs = ['#about', '#work', '#skills', '#journey', '#contact']
 
 export default function Sidebar() {
-  const { currentSection, goToSection } = useFullpage()
+  const { currentSection } = useFullpage()
   const [hovered, setHovered] = useState<number | null>(null)
 
   return (
@@ -24,16 +25,16 @@ export default function Sidebar() {
         const isHovered = hovered === section
 
         return (
-          <button
+          <a
             key={section}
-            onClick={() => goToSection(section)}
+            href={sectionHrefs[section]}
             onMouseEnter={() => setHovered(section)}
             onMouseLeave={() => setHovered(null)}
             onFocus={() => setHovered(section)}
             onBlur={() => setHovered(null)}
             aria-label={`Go to ${sectionNames[section]} section`}
             aria-current={isActive ? 'true' : undefined}
-            className={`group relative flex items-center justify-center w-9 h-9 border-none rounded-full cursor-pointer transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
+            className={`group relative flex items-center justify-center w-9 h-9 rounded-full no-underline cursor-pointer transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
               isActive || isHovered ? 'text-accent bg-accent/10' : 'text-ink'
             }`}
           >
@@ -46,7 +47,7 @@ export default function Sidebar() {
             <svg xmlns="http://www.w3.org/2000/svg" className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5} aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d={icon} />
             </svg>
-          </button>
+          </a>
         )
       })}
     </div>
