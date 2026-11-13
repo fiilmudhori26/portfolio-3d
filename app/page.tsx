@@ -16,7 +16,7 @@ export default function Home() {
       <LoadingScreen />
       <Navbar />
       <Sidebar />
-      <main className="bg-paper min-h-screen md:pl-14">
+      <main className="bg-paper md:pl-14">
         <Hero />
         <Projects />
         <Skills />
