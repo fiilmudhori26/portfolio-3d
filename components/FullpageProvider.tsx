@@ -68,8 +68,8 @@ export default function FullpageProvider({ children }: { children: ReactNode }) 
           }
         })
       },
-      // rootMargin -4rem di atas = mengkompensasi header fixed h-16
-      { threshold: 0.5, rootMargin: '-4rem 0px 0px 0px' },
+      // rootMargin -64px di atas (=4rem) = mengkompensasi header fixed h-16
+      { threshold: 0.5, rootMargin: '-64px 0px 0px 0px' },
     )
     sections.forEach((s) => observer.observe(s))
     return () => observer.disconnect()
