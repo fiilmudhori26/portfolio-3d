@@ -3,7 +3,15 @@
   "devCommand": "next dev",
   "installCommand": "npm install",
   "framework": "nextjs",
+  "headers": [
+    {
+      "source": "/((?!_next/|shots/|images/|fonts/).*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+      ]
+    }
+  ],
   "env": {
-    "NEXT_PUBLIC_SITE_URL": "https://rachmadakbar.com"
+    "NEXT_PUBLIC_SITE_URL": "https://portfolio-3d-tau-eight.vercel.app"
   }
 }
