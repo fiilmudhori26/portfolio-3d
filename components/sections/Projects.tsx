@@ -4,31 +4,55 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { projects } from '@/lib/data'
 import { useIntersectionShow } from '@/lib/hooks'
-import { ExternalLink, Github } from 'lucide-react'
 
-const spotlightId = 'keuangan-app'
-const ordered = [...projects].sort((a, b) => (a.id === spotlightId ? -1 : b.id === spotlightId ? 1 : 0))
+const ORDER = [
+  'simulasi-cpns',
+  'keuangan-app',
+  'koperasihub',
+  'keuangan-santri',
+  'photo-booth',
+  'tpq-finance',
+  'santriflow',
+  'jobflow',
+  'content-generator',
+  'url-shortener',
+]
 
-function ProjectShot({ id, title }: { id: string; title: string }) {
+const ordered = ORDER.map((id) => projects.find((p) => p.id === id)).filter(
+  (p): p is (typeof projects)[number] => Boolean(p),
+)
+
+function ProjectShot({ id, title, live }: { id: string; title: string; live: string }) {
   const [error, setError] = useState(false)
 
-  if (error) {
-    return (
-      <div className="h-44 sm:h-48 flex flex-col items-center justify-center gap-2 p-4 text-center bg-surface">
-        <p className="font-sans font-black text-2xl tracking-[-0.03em] text-foreground">{title}</p>
-      </div>
-    )
-  }
-
   return (
-    <Image
-      src={`/shots/${id}.png`}
-      alt={`Screenshot of ${title}`}
-      width={1280}
-      height={800}
-      className="w-full h-44 sm:h-48 object-cover object-top"
-      onError={() => setError(true)}
-    />
+    <div className="browser-frame">
+      <div className="browser-frame-bar">
+        <span className="flex gap-1.5" aria-hidden="true">
+          <span className="h-2 w-2 rounded-full bg-[#D96B5B]" />
+          <span className="h-2 w-2 rounded-full bg-[#D9B45B]" />
+          <span className="h-2 w-2 rounded-full bg-[#7BA05B]" />
+        </span>
+        <span className="flex-1 text-center font-mono text-[9px] text-muted truncate px-2">
+          {live !== '#' ? live.replace('https://', '') : `github.com/fiilmudhori26/${id}`}
+        </span>
+      </div>
+      {!error ? (
+        <Image
+          src={`/shots/${id}.png`}
+          alt={`Screenshot of ${title}`}
+          width={1280}
+          height={800}
+          className="w-full aspect-[16/10] object-cover object-top"
+          onError={() => setError(true)}
+        />
+      ) : (
+        <div className="w-full aspect-[16/10] flex flex-col items-center justify-center gap-3 p-6 text-center bg-card">
+          <p className="font-display font-black italic text-3xl tracking-[-0.03em] text-ink">{title}</p>
+          <p className="label-mono">Lihat live →</p>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -36,109 +60,70 @@ export default function Projects() {
   const { ref, visible } = useIntersectionShow<HTMLElement>()
 
   return (
-    <section id="section-3" data-section-index="3" ref={ref} className="section-full !items-start !pt-20 md:!pt-24">
-      <div className="w-full max-w-6xl mx-auto">
-        <div className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'}`} style={{ transitionDelay: '0ms' }}>
-          <p className="label-mono mb-3">Selected work</p>
-          <div className="flex items-end justify-between gap-6 flex-wrap">
-            <h2 className="font-sans font-black tracking-[-0.04em] leading-[0.95] text-5xl sm:text-6xl lg:text-7xl text-foreground">
-              Recent<br />Builds.
+    <section id="work" data-section-index="1" ref={ref} className="relative bg-paper">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
+        {/* ── Section header ─────────────────────────── */}
+        <div className="rule-top pt-6 flex items-end justify-between gap-6 flex-wrap pb-4">
+          <div>
+            <p className="label-mono">N°02 — Work</p>
+            <h2 className="font-display font-black tracking-[-0.03em] leading-[0.95] text-6xl sm:text-7xl lg:text-8xl text-ink mt-3">
+              Karya<br /><em className="italic font-light">nyata.</em>
             </h2>
-            <p className="text-sm text-ink-2 max-w-[16rem] leading-snug mb-1">
-              {projects.length} live products — from idea to Vercel, no templates.
-            </p>
           </div>
+          <p className="label-mono !text-[9px] sm:!text-[10px] max-w-[13rem] leading-relaxed text-right hidden sm:block">
+            {ordered.length} proyek live · diurutkan dari yang paling kuat
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8">
-          {ordered.map((p, idx) => {
-            const isSpotlight = p.id === spotlightId
-            return (
-              <article
-                key={p.id}
-                className={`card-bento anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'} flex flex-col overflow-hidden ${
-                  isSpotlight ? 'md:col-span-2 lg:row-span-1' : ''
-                }`}
-                style={{ transitionDelay: `${150 + idx * 80}ms` }}
-              >
-                <div className="flex items-center justify-between px-5 pt-4">
-                  <span className="label-mono !text-[9px]">
-                    {String(idx + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-                  </span>
-                  {isSpotlight ? (
-                    <span className="label-mono !text-[9px] !text-pink inline-flex items-center gap-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-pink inline-block" /> Recent build
-                    </span>
-                  ) : (
-                    <span className="label-mono !text-[9px] inline-flex items-center gap-1.5">
-                      <span className="h-1.5 w-1.5 rounded-full bg-pink inline-block" /> Live
-                    </span>
+        {/* ── Case studies ───────────────────────────── */}
+        {ordered.map((p, i) => {
+          const flip = i % 2 === 1
+          const num = String(i + 1).padStart(2, '0')
+          return (
+            <article
+              key={p.id}
+              className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'} grid grid-cols-12 gap-6 md:gap-10 py-12 md:py-16 border-t border-line items-center`}
+              style={{ transitionDelay: '80ms' }}
+            >
+              {/* Kolom teks */}
+              <div className={`col-span-12 md:col-span-4 ${flip ? 'md:order-2' : ''}`}>
+                <p className="font-display font-black leading-none text-6xl md:text-7xl text-accent/90 tracking-[-0.04em]">{num}</p>
+                <h3 className="font-display italic font-black tracking-[-0.02em] leading-[0.98] text-3xl sm:text-4xl lg:text-5xl text-ink mt-4">
+                  {p.title}
+                </h3>
+                <p className="label-mono mt-3">{p.tagline}</p>
+                <p className="text-sm text-ink leading-relaxed mt-4">{p.overview}</p>
+
+                <ul className="flex flex-wrap gap-x-2 gap-y-2 mt-5">
+                  {p.tech.map((t) => (
+                    <li key={t} className="font-mono text-[9px] uppercase tracking-[0.12em] text-ink border border-line rounded-full px-2.5 py-1">
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-6 flex flex-wrap items-center gap-6">
+                  {p.live !== '#' && (
+                    <a href={p.live} target="_blank" rel="noopener noreferrer" aria-label={`Live: ${p.title}`} className="link-editorial font-mono text-xs uppercase tracking-[0.14em] no-underline font-medium">
+                      Lihat live →
+                    </a>
                   )}
-                </div>
-
-                <div className="px-5 pt-3 pb-4 flex flex-col flex-1">
-                  <h3 className="font-sans font-extrabold tracking-[-0.03em] leading-none text-2xl md:text-3xl text-foreground">
-                    {p.title}
-                  </h3>
-                  <p className="text-xs text-ink-2 mt-1.5">{p.tagline}</p>
-
-                  <a
-                    href={p.live !== '#' ? p.live : p.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={p.live !== '#' ? `Open ${p.title} live site` : `View ${p.title} on GitHub`}
-                    className="browser-frame block no-underline mt-4 group focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink"
-                  >
-                    <div className="browser-frame-bar !py-1.5">
-                      <span className="flex gap-1" aria-hidden="true">
-                        <span className="h-2 w-2 rounded-full bg-[#ff5f57]" />
-                        <span className="h-2 w-2 rounded-full bg-[#febc2e]" />
-                        <span className="h-2 w-2 rounded-full bg-[#28c840]" />
-                      </span>
-                      <span className="flex-1 text-center font-mono text-[9px] text-ink-3 truncate px-2">
-                        {p.live !== '#' ? p.live.replace('https://', '') : `github.com/.../${p.id}`}
-                      </span>
-                    </div>
-                    <ProjectShot id={p.id} title={p.title} />
+                  <a href={p.github} target="_blank" rel="noopener noreferrer" aria-label={`Code: ${p.title}`} className="link-editorial font-mono text-xs uppercase tracking-[0.14em] no-underline font-medium">
+                    Code →
                   </a>
+                </p>
+              </div>
 
-                  <div className="flex flex-wrap gap-1.5 mt-4">
-                    {p.tech.slice(0, 5).map((t) => (
-                      <span key={t} className="font-mono text-[9px] uppercase tracking-[0.08em] px-2 py-1 rounded-full border border-border text-ink-2">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  <div className="mt-auto flex items-center gap-4 pt-4">
-                    {p.github && (
-                      <a
-                        href={p.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`View ${p.title} source code on GitHub`}
-                        className="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-2 hover:text-foreground transition-colors no-underline py-2"
-                      >
-                        <Github className="w-4 h-4" aria-hidden="true" /> Code
-                      </a>
-                    )}
-                    {p.live !== '#' && (
-                      <a
-                        href={p.live}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Open ${p.title} live demo`}
-                        className="inline-flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.14em] text-pink hover:text-foreground transition-colors no-underline py-2"
-                      >
-                        Demo <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </article>
-            )
-          })}
-        </div>
+              {/* Kolom gambar */}
+              <figure className={`col-span-12 md:col-span-8 ${flip ? 'md:order-1' : ''}`}>
+                <ProjectShot id={p.id} title={p.title} live={p.live} />
+                <figcaption className="label-mono !text-[9px] mt-3">
+                  Gambar {num} — {p.id}{p.live !== '#' ? ` · live di ${p.live.replace('https://', '')}` : ' · source di GitHub'}
+                </figcaption>
+              </figure>
+            </article>
+          )
+        })}
       </div>
     </section>
   )

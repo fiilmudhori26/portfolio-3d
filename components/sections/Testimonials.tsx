@@ -26,14 +26,14 @@ const Testimonials = () => {
               transition={{ duration: 0.4, delay: idx * 0.06 }}
               className="card p-7 flex flex-col"
             >
-              <p className="text-ink-2/70 text-sm leading-relaxed flex-1 mb-5 italic">&ldquo;{t.text}&rdquo;</p>
+              <p className="text-muted/70 text-sm leading-relaxed flex-1 mb-5 italic">&ldquo;{t.text}&rdquo;</p>
               <div className="flex items-center gap-3 pt-4 border-t border-border">
-                <div className="w-9 h-9 rounded-full bg-surface-2 border border-border flex items-center justify-center">
-                  <span className="font-display font-bold text-sm text-ink-2/70">{t.name[0]}</span>
+                <div className="w-9 h-9 rounded-full bg-card border border-border flex items-center justify-center">
+                  <span className="font-display font-bold text-sm text-muted/70">{t.name[0]}</span>
                 </div>
                 <div>
                   <p className="font-medium text-sm text-foreground">{t.name}</p>
-                  <p className="text-xs text-ink-2/70">{t.role}, {t.company}</p>
+                  <p className="text-xs text-muted/70">{t.role}, {t.company}</p>
                 </div>
               </div>
             </motion.div>

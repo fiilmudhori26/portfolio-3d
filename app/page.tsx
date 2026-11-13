@@ -3,10 +3,8 @@
 import FullpageProvider from '@/components/FullpageProvider'
 import Navbar from '@/components/Navbar'
 import Sidebar from '@/components/Sidebar'
-import ScrollIndicator from '@/components/ScrollIndicator'
 import LoadingScreen from '@/components/LoadingScreen'
 import Hero from '@/components/sections/Hero'
-import About from '@/components/sections/About'
 import Skills from '@/components/sections/Skills'
 import Projects from '@/components/sections/Projects'
 import Experience from '@/components/sections/Experience'
@@ -16,18 +14,15 @@ export default function Home() {
   return (
     <FullpageProvider>
       <LoadingScreen />
-      <div className="section-overlay" id="sectionOverlay" aria-hidden="true" />
       <Navbar />
       <Sidebar />
-      <main className="min-h-screen">
+      <main className="bg-paper min-h-screen">
         <Hero />
-        <About />
-        <Skills />
         <Projects />
+        <Skills />
         <Experience />
         <Contact />
       </main>
-      <ScrollIndicator />
     </FullpageProvider>
   )
 }

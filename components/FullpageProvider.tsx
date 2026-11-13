@@ -29,18 +29,22 @@ export default function FullpageProvider({ children }: { children: ReactNode }) 
   const nextIndex = useRef(0)
 
   const registerSection = useCallback((id: string) => {
+    void id
     const idx = nextIndex.current
     nextIndex.current++
     return idx
   }, [])
 
   const goToSection = useCallback((index: number) => {
-    const count = typeof document !== 'undefined'
-      ? document.querySelectorAll('[data-section-index]').length
-      : 0
-    const clamped = Math.max(0, Math.min(index, Math.max(0, (count || 1) - 1)))
+    const sections = typeof document !== 'undefined'
+      ? document.querySelectorAll('[data-section-index]')
+      : []
+    const count = sections.length
+    const clamped = Math.max(0, Math.min(index, Math.max(0, count - 1)))
 
-    const el = document.getElementById(`section-${clamped}`)
+    const el = Array.from(sections).find(
+      (s) => parseInt(s.getAttribute('data-section-index') || '0', 10) === clamped,
+    ) as HTMLElement | undefined
     if (!el) return
 
     setCurrentSection(clamped)
@@ -52,8 +56,7 @@ export default function FullpageProvider({ children }: { children: ReactNode }) 
     el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' })
   }, [])
 
-  // Hitung jumlah section + scroll-spy via IntersectionObserver.
-  // Nativo scroll — tidak ada wheel/keydown hijack; keyboard default browser dibiarkan.
+  // Scroll-spy via IntersectionObserver — scroll normal, tanpa snap.
   useEffect(() => {
     const sections = document.querySelectorAll('[data-section-index]')
     if (sections.length === 0) return
@@ -68,8 +71,7 @@ export default function FullpageProvider({ children }: { children: ReactNode }) 
           }
         })
       },
-      // rootMargin -64px di atas (=4rem) = mengkompensasi header fixed h-16
-      { threshold: 0.5, rootMargin: '-64px 0px 0px 0px' },
+      { threshold: 0.35, rootMargin: '-4.5rem 0px 0px 0px' },
     )
     sections.forEach((s) => observer.observe(s))
     return () => observer.disconnect()

@@ -3,60 +3,46 @@
 import { skills as skillsData } from '@/lib/data'
 import { useIntersectionShow } from '@/lib/hooks'
 
-const SKILL_GROUPS: Record<string, { name: string; level: number }[]> = {
-  frontend: skillsData.frontend,
-  backend: skillsData.backend,
-  tools: skillsData.tools,
-  design: skillsData.design,
-  digitalMarketing: skillsData.digitalMarketing,
-}
-
-const CARDS: Array<{ label: string; groups: string[] }> = [
-  { label: 'Frontend', groups: ['frontend'] },
-  { label: 'Backend & Data', groups: ['backend'] },
-  { label: 'Tools & Platform', groups: ['tools'] },
-  { label: 'Design & Marketing', groups: ['design', 'digitalMarketing'] },
+const COLUMNS: Array<{ label: string; groups: Array<keyof typeof skillsData>; note: string }> = [
+  { label: 'Frontend', groups: ['frontend'], note: 'Antarmuka & pengalaman pengguna' },
+  { label: 'Backend & Data', groups: ['backend'], note: 'API, database & otomasi' },
+  { label: 'Tools & Marketing', groups: ['tools', 'digitalMarketing', 'design'], note: 'Workflow & kanal distribusi' },
 ]
 
 export default function Skills() {
   const { ref, visible } = useIntersectionShow<HTMLElement>()
 
   return (
-    <section id="section-2" data-section-index="2" ref={ref} className="section-full bg-surface">
-      <div className="w-full max-w-6xl mx-auto">
-        <div className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'}`}>
-          <p className="label-mono mb-3">Stack</p>
-          <div className="flex items-end justify-between gap-6 flex-wrap">
-            <h2 className="font-sans font-black tracking-[-0.04em] leading-[0.95] text-5xl sm:text-6xl lg:text-7xl text-foreground">
-              Tech &amp;<br />Tools.
-            </h2>
-            <p className="text-sm text-ink-2 max-w-[16rem] leading-snug mb-1">
-              What I reach for when something needs to ship.
-            </p>
-          </div>
+    <section id="skills" data-section-index="2" ref={ref} className="relative bg-card border-t border-line">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 md:py-20">
+        <div className="rule-top pt-6">
+          <p className="label-mono">N°03 — Skills</p>
+          <h2 className="font-display font-black tracking-[-0.03em] leading-[0.95] text-6xl sm:text-7xl lg:text-8xl text-ink mt-3">
+            Isi<br /><em className="italic font-light">tas kerja.</em>
+          </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
-          {CARDS.map((card, i) => {
-            const items = card.groups.flatMap((g) => SKILL_GROUPS[g] ?? [])
+        <div className="grid md:grid-cols-3 gap-0 mt-12 border-t border-b border-line divide-y md:divide-y-0 md:divide-x divide-line">
+          {COLUMNS.map((col, i) => {
+            const items = col.groups.flatMap((g) => {
+              const list = skillsData[g]
+              return Array.isArray(list) ? (list as { name: string }[]) : []
+            })
             return (
               <div
-                key={card.label}
-                className={`card-bento anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'} p-6 md:p-7 flex flex-col`}
-                style={{ transitionDelay: `${150 + i * 100}ms` }}
+                key={col.label}
+                className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'} px-0 md:px-8 py-8 first:pl-0 last:pr-0`}
+                style={{ transitionDelay: `${i * 90}ms` }}
               >
-                <div className="flex items-start justify-between gap-4 mb-5">
-                  <h3 className="font-sans font-extrabold text-2xl tracking-[-0.03em] text-foreground">{card.label}</h3>
-                  <span className="font-mono text-xs text-ink-3 pt-1">{String(items.length).padStart(2, '0')}</span>
-                </div>
-                <ul className="flex flex-wrap gap-2">
+                <p className="label-mono !text-[10px] text-ink">{col.label} <span className="text-accent">· {items.length}</span></p>
+                <p className="label-mono !text-[8px] mt-1.5">{col.note}</p>
+                <ul className="mt-6">
                   {items.map((s) => (
                     <li
                       key={s.name}
-                      className="font-mono text-[10px] uppercase tracking-[0.08em] px-3 py-1.5 rounded-full border border-border text-ink-2"
-                      title={`Level ${s.level}/100`}
+                      className="border-t border-line py-2.5 first:border-t-0"
                     >
-                      {s.name}
+                      <span className="font-display font-semibold text-lg text-ink leading-tight">{s.name}</span>
                     </li>
                   ))}
                 </ul>
@@ -64,6 +50,8 @@ export default function Skills() {
             )
           })}
         </div>
+
+        <p className="label-mono !text-[9px] mt-8 text-right">Skill berkembang seiring project.</p>
       </div>
     </section>
   )

@@ -3,39 +3,16 @@
 import { experience, education, organization } from '@/lib/data'
 import { useIntersectionShow } from '@/lib/hooks'
 
-function TimelineItem({ title, subtitle, period, description, highlights, tech }: {
-  title: string; subtitle: string; period: string;
-  description: string; highlights?: string[]; tech?: string[];
-}) {
-  const { ref, visible } = useIntersectionShow<HTMLDivElement>()
+function Row({ role, org, meta, detail }: { role: string; org: string; meta: string; detail?: string }) {
   return (
-    <div ref={ref} className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'} relative pl-8 pb-7 border-l border-border last:pb-0`}>
-      <span className="absolute left-0 top-1.5 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-pink" aria-hidden="true" />
-      <div className="flex items-start justify-between gap-3 mb-1.5">
-        <div>
-          <h3 className="font-sans font-bold text-base text-foreground leading-snug">{title}</h3>
-          <p className="text-xs text-ink-2 mt-0.5">{subtitle}</p>
-        </div>
-        <span className="label-mono !text-[9px] whitespace-nowrap pt-1">{period}</span>
+    <div className="border-t border-line py-4 first:border-t-0 grid grid-cols-12 gap-3 items-baseline">
+      <div className="col-span-12 sm:col-span-8">
+        <h3 className="font-display font-bold text-lg sm:text-xl text-ink leading-snug">
+          {role} — <span className="italic font-light">{org}</span>
+        </h3>
+        {detail && <p className="text-xs text-muted leading-relaxed mt-1.5">{detail}</p>}
       </div>
-      <p className="text-xs text-ink-2 leading-relaxed mb-2">{description}</p>
-      {highlights && highlights.length > 0 && (
-        <ul className="space-y-1 mb-2">
-          {highlights.map((h, i) => (
-            <li key={i} className="text-[11px] text-ink-3 flex gap-2">
-              <span className="text-pink mt-0.5" aria-hidden="true">—</span>
-              <span>{h}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-      {tech && tech.length > 0 && (
-        <div className="flex flex-wrap gap-1.5">
-          {tech.map((t) => (
-            <span key={t} className="font-mono text-[9px] uppercase tracking-[0.08em] px-2 py-1 rounded-full border border-border text-ink-2">{t}</span>
-          ))}
-        </div>
-      )}
+      <p className="col-span-12 sm:col-span-4 label-mono !text-[9px] sm:text-right">{meta}</p>
     </div>
   )
 }
@@ -44,67 +21,54 @@ export default function Experience() {
   const { ref, visible } = useIntersectionShow<HTMLElement>()
 
   return (
-    <section id="section-4" data-section-index="4" ref={ref} className="section-full !items-start !pt-20 md:!pt-24">
-      <div className="w-full max-w-6xl mx-auto">
-        <div className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'}`}>
-          <p className="label-mono mb-3">Journey</p>
-          <div className="flex items-end justify-between gap-6 flex-wrap">
-            <h2 className="font-sans font-black tracking-[-0.04em] leading-[0.95] text-5xl sm:text-6xl lg:text-7xl text-foreground">
-              The Road<br />So Far.
-            </h2>
-            <p className="text-sm text-ink-2 max-w-[16rem] leading-snug mb-1">
-              Work, education and organisation — all shipping.
-            </p>
-          </div>
+    <section id="journey" data-section-index="3" ref={ref} className="relative bg-paper border-t border-line">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 md:py-20">
+        <div className="rule-top pt-6">
+          <p className="label-mono">N°04 — Journey</p>
+          <h2 className="font-display font-black tracking-[-0.03em] leading-[0.95] text-6xl sm:text-7xl lg:text-8xl text-ink mt-3">
+            Yang sudah<br /><em className="italic font-light">dilewati.</em>
+          </h2>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-x-12 gap-y-10 mt-10">
-          <div className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'}`} style={{ transitionDelay: '100ms' }}>
-            <h3 className="label-mono mb-6 flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-pink inline-block" /> Work
-            </h3>
-            {experience.map((exp) => (
-              <TimelineItem
-                key={exp.id}
-                title={exp.role}
-                subtitle={`${exp.company} · ${exp.location}`}
-                period={exp.period}
-                description={exp.description}
-                highlights={exp.contributions}
-                tech={exp.tech}
-              />
-            ))}
-          </div>
-
-          <div className="space-y-10">
-            <div className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'}`} style={{ transitionDelay: '200ms' }}>
-              <h3 className="label-mono mb-6 flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-pink inline-block" /> Education
-              </h3>
-              {education.map((edu) => (
-                <TimelineItem
-                  key={edu.id}
-                  title={edu.major}
-                  subtitle={edu.institution}
-                  period={edu.period}
-                  description={edu.description}
-                  highlights={edu.highlights}
+        <div className="grid md:grid-cols-12 gap-x-10 gap-y-12 mt-12">
+          {/* Kiri — Work */}
+          <div className={`md:col-span-7 ${visible ? '' : 'anim-up'} anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''}`}>
+            <p className="label-mono !text-[10px] mb-5">Work</p>
+            <div>
+              {experience.map((exp) => (
+                <Row
+                  key={exp.id}
+                  role={exp.role}
+                  org={exp.company}
+                  meta={`${exp.period} · ${exp.type}`}
+                  detail={exp.description}
                 />
               ))}
             </div>
+          </div>
 
-            <div className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'}`} style={{ transitionDelay: '300ms' }}>
-              <h3 className="label-mono mb-6 flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-pink inline-block" /> Organisation
-              </h3>
+          {/* Kanan — Education + Organisation */}
+          <div className={`md:col-span-5 space-y-12 ${visible ? '' : 'anim-up'} anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''}`} style={{ transitionDelay: '120ms' }}>
+            <div>
+              <p className="label-mono !text-[10px] mb-5">Education</p>
+              {education.map((edu) => (
+                <Row
+                  key={edu.id}
+                  role={edu.major}
+                  org={edu.institution}
+                  meta={edu.period}
+                />
+              ))}
+            </div>
+            <div>
+              <p className="label-mono !text-[10px] mb-5">Organisation</p>
               {organization.map((org) => (
-                <TimelineItem
+                <Row
                   key={org.id}
-                  title={org.role}
-                  subtitle={org.organization}
-                  period={org.period}
-                  description={org.description}
-                  highlights={org.achievements}
+                  role={org.role}
+                  org={org.organization}
+                  meta={org.period}
+                  detail={org.description}
                 />
               ))}
             </div>
