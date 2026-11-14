@@ -58,6 +58,7 @@ export default function Navbar() {
             Book a Call
           </a>
           <button
+            id="navbar-menu-toggle"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"

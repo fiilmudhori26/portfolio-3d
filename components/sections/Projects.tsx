@@ -1,10 +1,18 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { motion, useReducedMotion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { projects } from '@/lib/data'
-import { useIntersectionShow } from '@/lib/hooks'
 import { PROJECT_ICONS } from '@/components/icons'
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger)
+}
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 const ORDER = [
   'simulasi-cpns',
@@ -25,6 +33,35 @@ const ordered = ORDER.map((id) => projects.find((p) => p.id === id)).filter(
 
 function ProjectShot({ id, title, live }: { id: string; title: string; live: string }) {
   const [error, setError] = useState(false)
+  const parallaxWrapRef = useRef<HTMLDivElement>(null)
+  const imgRef = useRef<HTMLImageElement>(null)
+  const reduce = useReducedMotion()
+
+  useEffect(() => {
+    if (reduce || error) return
+    const wrap = parallaxWrapRef.current
+    const img = imgRef.current
+    if (!wrap || !img) return
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        img,
+        { yPercent: -5 },
+        {
+          yPercent: 5,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: wrap,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 0.6,
+          },
+        },
+      )
+    }, wrap)
+
+    return () => ctx.revert()
+  }, [reduce, error])
 
   return (
     <div className="browser-frame">
@@ -39,14 +76,17 @@ function ProjectShot({ id, title, live }: { id: string; title: string; live: str
         </span>
       </div>
       {!error ? (
-        <Image
-          src={`/shots/${id}.png`}
-          alt={`Screenshot of ${title}`}
-          width={1280}
-          height={800}
-          className="w-full aspect-[16/10] object-cover object-top"
-          onError={() => setError(true)}
-        />
+        <div ref={parallaxWrapRef} className="relative aspect-[16/10] overflow-hidden">
+          <Image
+            ref={imgRef}
+            src={`/shots/${id}.png`}
+            alt={`Screenshot of ${title}`}
+            width={1280}
+            height={800}
+            className="absolute left-0 top-[-6%] h-[112%] w-full object-cover object-top"
+            onError={() => setError(true)}
+          />
+        </div>
       ) : (
         <div className="w-full aspect-[16/10] flex flex-col items-center justify-center gap-4 p-6 text-center bg-ink text-paper">
           <span className="label-mono !text-[9px] text-paper/60">Source code only</span>
@@ -59,10 +99,8 @@ function ProjectShot({ id, title, live }: { id: string; title: string; live: str
 }
 
 export default function Projects() {
-  const { ref, visible } = useIntersectionShow<HTMLElement>()
-
   return (
-    <section id="work" data-section-index="1" ref={ref} className="relative bg-paper">
+    <section id="work" data-section-index="1" className="relative bg-paper">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
         {/* ── Section header ─────────────────────────── */}
         <div className="rule-top pt-6 flex items-end justify-between gap-6 flex-wrap pb-4">
@@ -82,10 +120,13 @@ export default function Projects() {
           const flip = i % 2 === 1
           const num = String(i + 1).padStart(2, '0')
           return (
-            <article
+            <motion.article
               key={p.id}
-              className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'} grid grid-cols-12 gap-6 md:gap-10 py-12 md:py-16 border-t border-line items-center`}
-              style={{ transitionDelay: '80ms' }}
+              className="grid grid-cols-12 gap-6 md:gap-10 py-12 md:py-16 border-t border-line items-center"
+              initial={{ opacity: 0, y: 36 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-12% 0px' }}
+              transition={{ duration: 0.7, ease: EASE }}
             >
               {/* Kolom teks */}
               <div className={`col-span-12 md:col-span-4 ${flip ? 'md:order-2' : ''}`}>
@@ -120,13 +161,19 @@ export default function Projects() {
               </div>
 
               {/* Kolom gambar */}
-              <figure className={`col-span-12 md:col-span-8 ${flip ? 'md:order-1' : ''}`}>
+              <motion.figure
+                className={`col-span-12 md:col-span-8 ${flip ? 'md:order-1' : ''}`}
+                initial={{ opacity: 0, y: 28, clipPath: 'inset(10% 5% 10% 5%)' }}
+                whileInView={{ opacity: 1, y: 0, clipPath: 'inset(0% 0% 0% 0%)' }}
+                viewport={{ once: true, margin: '-12% 0px' }}
+                transition={{ duration: 0.8, ease: EASE, delay: 0.08 }}
+              >
                 <ProjectShot id={p.id} title={p.title} live={p.live} />
                 <figcaption className="label-mono !text-[9px] mt-3">
                   Gambar {num} — {p.id}{p.live !== '#' ? ` · live di ${p.live.replace('https://', '')}` : ' · source di GitHub'}
                 </figcaption>
-              </figure>
-            </article>
+              </motion.figure>
+            </motion.article>
           )
         })}
       </div>

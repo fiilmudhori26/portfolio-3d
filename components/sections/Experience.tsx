@@ -1,7 +1,9 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { experience, education, organization } from '@/lib/data'
-import { useIntersectionShow } from '@/lib/hooks'
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 function Row({ role, org, meta, detail }: { role: string; org: string; meta: string; detail?: string }) {
   return (
@@ -18,10 +20,8 @@ function Row({ role, org, meta, detail }: { role: string; org: string; meta: str
 }
 
 export default function Experience() {
-  const { ref, visible } = useIntersectionShow<HTMLElement>()
-
   return (
-    <section id="journey" data-section-index="3" ref={ref} className="relative bg-paper border-t border-line">
+    <section id="journey" data-section-index="3" className="relative bg-paper border-t border-line">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 md:py-20">
         <div className="rule-top pt-6">
           <p className="label-mono">N°04 — Journey</p>
@@ -32,7 +32,13 @@ export default function Experience() {
 
         <div className="grid md:grid-cols-12 gap-x-10 gap-y-12 mt-12">
           {/* Kiri — Work */}
-          <div className={`md:col-span-7 ${visible ? '' : 'anim-up'} anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''}`}>
+          <motion.div
+            className="md:col-span-7"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-10% 0px' }}
+            transition={{ duration: 0.65, ease: EASE }}
+          >
             <p className="label-mono !text-[10px] mb-5">Work</p>
             <div>
               {experience.map((exp) => (
@@ -45,10 +51,16 @@ export default function Experience() {
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Kanan — Education + Organisation */}
-          <div className={`md:col-span-5 space-y-12 ${visible ? '' : 'anim-up'} anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''}`} style={{ transitionDelay: '120ms' }}>
+          <motion.div
+            className="md:col-span-5 space-y-12"
+            initial={{ opacity: 0, y: 28 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-10% 0px' }}
+            transition={{ duration: 0.65, ease: EASE, delay: 0.12 }}
+          >
             <div>
               <p className="label-mono !text-[10px] mb-5">Education</p>
               {education.map((edu) => (
@@ -72,7 +84,7 @@ export default function Experience() {
                 />
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

@@ -1,8 +1,10 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { skills as skillsData } from '@/lib/data'
-import { useIntersectionShow } from '@/lib/hooks'
 import { SKILL_ICONS } from '@/components/icons'
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 const COLUMNS: Array<{ label: string; groups: Array<keyof typeof skillsData>; note: string }> = [
   { label: 'Frontend', groups: ['frontend'], note: 'Antarmuka & pengalaman pengguna' },
@@ -11,10 +13,8 @@ const COLUMNS: Array<{ label: string; groups: Array<keyof typeof skillsData>; no
 ]
 
 export default function Skills() {
-  const { ref, visible } = useIntersectionShow<HTMLElement>()
-
   return (
-    <section id="skills" data-section-index="2" ref={ref} className="relative bg-card border-t border-line">
+    <section id="skills" data-section-index="2" className="relative bg-card border-t border-line">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 md:py-20">
         <div className="rule-top pt-6">
           <p className="label-mono">N°03 — Skills</p>
@@ -30,10 +30,13 @@ export default function Skills() {
               return Array.isArray(list) ? (list as { name: string }[]) : []
             })
             return (
-              <div
+              <motion.div
                 key={col.label}
-                className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'} px-0 md:px-8 py-8 first:pl-0 last:pr-0`}
-                style={{ transitionDelay: `${i * 90}ms` }}
+                className="px-0 md:px-8 py-8 first:pl-0 last:pr-0"
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10% 0px' }}
+                transition={{ duration: 0.65, ease: EASE, delay: i * 0.09 }}
               >
                 <p className="label-mono !text-[10px] text-ink">{col.label} <span className="text-accent">· {items.length}</span></p>
                 <p className="label-mono !text-[8px] mt-1.5">{col.note}</p>
@@ -50,7 +53,7 @@ export default function Skills() {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </motion.div>
             )
           })}
         </div>

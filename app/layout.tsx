@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import MotionProvider from '@/components/MotionProvider'
 import { personalInfo } from '@/lib/data'
 
 const SITE_URL = 'https://portfolio-3d-tau-eight.vercel.app'
@@ -65,9 +66,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
+        <noscript>
+          <style>{`*,*::before,*::after{opacity:1 !important;transform:none !important;clip-path:none !important}.loading-screen{display:none !important}`}</style>
+        </noscript>
       </head>
       <body className="min-h-screen bg-paper text-ink antialiased selection:bg-accent/20 selection:text-ink">
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   )

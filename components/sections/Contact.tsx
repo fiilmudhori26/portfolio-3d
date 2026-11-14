@@ -1,8 +1,10 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { personalInfo } from '@/lib/data'
-import { useIntersectionShow } from '@/lib/hooks'
 import ContactForm from './ContactForm'
+
+const EASE = [0.22, 1, 0.36, 1] as const
 
 const socialLinks = [
   { href: personalInfo.social.github, label: 'GitHub' },
@@ -11,18 +13,22 @@ const socialLinks = [
 ]
 
 export default function Contact() {
-  const { ref, visible } = useIntersectionShow<HTMLElement>()
-
   return (
-    <section id="contact" data-section-index="4" ref={ref} className="relative bg-paper border-t border-line">
+    <section id="contact" data-section-index="4" className="relative bg-paper border-t border-line">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12 py-16 md:py-24">
         <div className="rule-top pt-6">
           <p className="label-mono">N°05 — Colophon</p>
         </div>
 
-        <h2 className={`anim-hidden-gpu ${visible ? 'anim-visible-gpu' : ''} ${visible ? '' : 'anim-up'} font-display font-black tracking-[-0.04em] leading-[0.95] text-6xl sm:text-7xl lg:text-8xl text-ink mt-6 max-w-5xl`}>
+        <motion.h2
+          className="font-display font-black tracking-[-0.04em] leading-[0.95] text-6xl sm:text-7xl lg:text-8xl text-ink mt-6 max-w-5xl"
+          initial={{ opacity: 0, y: 32 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-10% 0px' }}
+          transition={{ duration: 0.7, ease: EASE }}
+        >
           Mari bangun<br />sesuatu yang<br /><em className="italic font-light text-accent">nyata.</em>
-        </h2>
+        </motion.h2>
 
         <a
           href={`mailto:${personalInfo.email}`}
