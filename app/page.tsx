@@ -27,7 +27,7 @@ export default function Home() {
             <p className="label-mono !text-[9px]">© 2026 Rahmad Akbar · Jember, Indonesia</p>
             <nav aria-label="Footer" className="flex items-center gap-5">
               <a href="https://github.com/fiilmudhori26" target="_blank" rel="noopener noreferrer" className="label-mono !text-[9px] no-underline hover:text-accent transition-colors">GitHub ↗</a>
-              <a href="https://www.linkedin.com/in/Rahmadakbar" target="_blank" rel="noopener noreferrer" className="label-mono !text-[9px] no-underline hover:text-accent transition-colors">LinkedIn ↗</a>
+              <a href="https://www.linkedin.com/in/rahmadakbar24" target="_blank" rel="noopener noreferrer" className="label-mono !text-[9px] no-underline hover:text-accent transition-colors">LinkedIn ↗</a>
               <a href="https://www.tiktok.com/@_arvyn24" target="_blank" rel="noopener noreferrer" className="label-mono !text-[9px] no-underline hover:text-accent transition-colors">TikTok ↗</a>
               <a href="mailto:rahmad26akbar@gmail.com" className="label-mono !text-[9px] no-underline hover:text-accent transition-colors">Email ↗</a>
             </nav>

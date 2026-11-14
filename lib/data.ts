@@ -10,7 +10,7 @@ export const personalInfo = {
   role: 'Full Stack Software Engineer',
   social: {
     github: 'https://github.com/fiilmudhori26',
-    linkedin: 'https://www.linkedin.com/in/Rahmadakbar',
+    linkedin: 'https://www.linkedin.com/in/rahmadakbar24',
     tiktok: 'https://www.tiktok.com/@_arvyn24',
   },
   cvDownload: '/CV_Rahmad_Akbar.pdf',
