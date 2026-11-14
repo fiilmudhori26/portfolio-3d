@@ -7,8 +7,8 @@ const SITE_URL = 'https://portfolio-3d-tau-eight.vercel.app'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: `${personalInfo.name} Â· Web Developer & Digital Marketing`,
-  description: `Portfolio of ${personalInfo.name} â€” ${personalInfo.title}. Building modern web applications with Next.js, TypeScript, Prisma/Drizzle, and PostgreSQL.`,
+  title: `${personalInfo.name} · Web Developer & Digital Marketing`,
+  description: `Portfolio of ${personalInfo.name} — ${personalInfo.title}. Building modern web applications with Next.js, TypeScript, Prisma/Drizzle, and PostgreSQL.`,
   keywords: [
     'Rahmad Akbar', 'Web Developer', 'Frontend Developer', 'Next.js',
     'TypeScript', 'Digital Marketing', 'Content Creator', 'Portfolio', 'Indonesia',
@@ -17,20 +17,20 @@ export const metadata: Metadata = {
   creator: personalInfo.name,
   alternates: { canonical: '/' },
   openGraph: {
-    title: `${personalInfo.name} Â· Portfolio`,
-    description: `${personalInfo.title} â€” Building modern web solutions with Next.js, TypeScript, Prisma/Drizzle, and PostgreSQL.`,
+    title: `${personalInfo.name} · Portfolio`,
+    description: `${personalInfo.title} — Building modern web solutions with Next.js, TypeScript, Prisma/Drizzle, and PostgreSQL.`,
     url: SITE_URL,
     siteName: `${personalInfo.name} Portfolio`,
     locale: 'id_ID',
     type: 'website',
     images: [
-      { url: '/og-image-1.png', width: 1200, height: 630, alt: `${personalInfo.name} â€” portfolio` },
+      { url: '/og-image-1.png', width: 1200, height: 630, alt: `${personalInfo.name} — portfolio` },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${personalInfo.name} Â· Portfolio`,
-    description: `${personalInfo.title} â€” Building modern web solutions with Next.js, TypeScript, Prisma/Drizzle, and PostgreSQL.`,
+    title: `${personalInfo.name} · Portfolio`,
+    description: `${personalInfo.title} — Building modern web solutions with Next.js, TypeScript, Prisma/Drizzle, and PostgreSQL.`,
     images: ['/og-image-1.png'],
   },
   robots: { index: true, follow: true },

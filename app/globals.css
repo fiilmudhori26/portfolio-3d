@@ -144,3 +144,114 @@
     transform: none !important;
   }
 }
+
+/* ============================================================
+   Print stylesheet — portofolio layak cetak (Ctrl+P -> Save PDF)
+   Hanya berlaku saat print; tampilan layar tidak terpengaruh.
+   Selector diambil dari: Navbar.tsx (header fixed, #navbar-menu-toggle),
+   Sidebar.tsx (div.fixed.left-4, tidak ada <aside>), LoadingScreen.tsx
+   (.loading-screen), MenuOverlay.tsx (#mobile-menu), Hero.tsx
+   (.animate-marquee), app/page.tsx (footer > nav), globals.css (.browser-frame).
+   ============================================================ */
+@page {
+  margin: 14mm 12mm;
+}
+
+@media print {
+  /* Latar putih, teks hitam */
+  body,
+  .bg-paper,
+  main,
+  section {
+    background: #fff !important;
+    color: #1C1A17 !important;
+  }
+  .bg-card,
+  .browser-frame,
+  .browser-frame-bar {
+    background: #fff !important;
+  }
+  .text-muted,
+  .label-mono {
+    color: #1C1A17 !important;
+  }
+
+  /* Hindari overflow clipping dari layout layar */
+  html,
+  body {
+    overflow: visible !important;
+    height: auto !important;
+  }
+  main {
+    padding-left: 0 !important; /* md:pl-14 untuk sidebar, tidak relevan di print */
+  }
+
+  /* Sembunyikan navigasi & elemen dekoratif/non-konten */
+  header,                 /* Navbar.tsx: <header className="fixed top-0 ..."> */
+  #navbar-menu-toggle,    /* Navbar.tsx: tombol hamburger */
+  #mobile-menu,           /* MenuOverlay.tsx: <motion.div id="mobile-menu"> */
+  .loading-screen,        /* LoadingScreen.tsx */
+  aside,                  /* tidak dipakai saat ini; jaga-jaga bila ada <aside> */
+  .fixed.left-4,          /* Sidebar.tsx: <div class="hidden md:flex fixed left-4 ..."> */
+  footer nav,             /* app/page.tsx: <nav aria-label="Footer">; copyright <p> tetap tercetak */
+  .animate-marquee {      /* Hero.tsx: strip marquee proyek */
+    display: none !important;
+  }
+  /* Sembunyikan strip pembungkus marquee (border kosong) bila browser mendukung :has */
+  div:has(> .animate-marquee) {
+    display: none !important;
+  }
+
+  /* Warna aksen jadi hitam */
+  .text-accent,
+  .text-accent-deep {
+    color: #1C1A17 !important;
+  }
+  .border-accent {
+    border-color: #1C1A17 !important;
+  }
+
+  /* Link: tanpa dekorasi, inherit warna (URL tidak dipaksa tampil) */
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+
+  /* Gambar: batasi ukuran, jangan pecah layout */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* Frame screenshot proyek */
+  .browser-frame {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .browser-frame img {
+    max-width: 100% !important;
+  }
+  figure {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Judul tidak terpisah dari konten berikutnya */
+  h1,
+  h2,
+  h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Pastikan konten tetap terlihat: matikan animasi & paksa state akhir
+     (framer-motion bisa meninggalkan opacity: 0 inline sebelum whileInView jalan) */
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

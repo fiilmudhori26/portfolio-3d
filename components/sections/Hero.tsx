@@ -147,10 +147,10 @@ export default function Hero() {
               transition={{ duration: 0.7, ease: EASE, delay: 1.45 }}
             >
               <Image
-                src={personalInfo.avatar || '/images/profile.png'}
+                src={personalInfo.avatar || '/images/profile.jpg'}
                 alt="Potret Rahmad Akbar"
                 width={640}
-                height={800}
+                height={850}
                 priority
                 className="w-full aspect-[4/5] object-cover object-top rounded-xl"
               />

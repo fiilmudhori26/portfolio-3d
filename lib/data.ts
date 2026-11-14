@@ -1,7 +1,7 @@
 export const personalInfo = {
   name: 'Rahmad Akbar',
   initials: 'RA',
-  avatar: '/images/profile.png',
+  avatar: '/images/profile.jpg',
   title: 'Web Developer & Digital Marketing',
   tagline: 'Santri Developer · Hafidz 30 Juz · Membangun solusi digital modern',
   email: 'rahmad26akbar@gmail.com',
@@ -215,7 +215,7 @@ export const projects = [
     title: 'Photo Booth',
     tagline: 'Web Photo Booth',
     description: 'Photo booth web: 3 pose, 5 template frame, filter, stiker, caption, dan ekspor PNG/JPG. Disertai unit test untuk logika inti.',
-    overview: 'Aplikasi interaktif dengan alur 4 langkah (select â†’ capture â†’ edit â†’ export) dan arsitektur deep-module.',
+    overview: 'Aplikasi interaktif dengan alur 4 langkah (select → capture → edit → export) dan arsitektur deep-module.',
     problem: 'Butuh pengalaman photo booth yang bisa diakses dari browser tanpa instalasi.',
     solution: 'Web app Next.js dengan Canvas rendering, template modular, dan unit test (Jest).',
     tech: ['Next.js 15', 'React 19', 'TypeScript', 'Tailwind CSS', 'Jest', 'Canvas API'],
