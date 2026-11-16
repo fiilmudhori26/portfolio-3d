@@ -20,3 +20,5 @@ dist/
 .env*
 .cursor/
 tsconfig.tsbuildinfo
+
+.superpowers/
