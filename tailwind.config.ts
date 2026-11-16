@@ -13,6 +13,7 @@ const config: Config = {
         muted: '#6E675E',
         accent: '#B3402A',
         'accent-deep': '#9C3521',
+        accentOnDark: '#EBA87F',
         line: '#E3DCCF',
         card: '#F3EEE3',
         foreground: '#1C1A17',

@@ -8,6 +8,7 @@ import {
   useInView,
   useMotionValue,
   useReducedMotion,
+  useScroll,
   useSpring,
   useTransform,
 } from 'framer-motion'
@@ -18,8 +19,11 @@ const useIsoLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : use
 
 const marqueeItems = projects.map((p) => p.title)
 
+// Jumlah proyek dengan live URL nyata (bukan '#'). Dipakai untuk stat "Proyek live".
+const liveCount = projects.filter((p) => p.live !== '#').length
+
 const stats = [
-  { target: 10, suffix: '+', label: 'Proyek live' },
+  { target: liveCount, suffix: '+', label: 'Proyek live' },
   { target: 4, suffix: '+', label: 'Tahun ngoding' },
   { target: 30, suffix: '', label: 'Juz dihafal' },
   { target: 100, suffix: '%', label: 'Bespoke' },
@@ -61,6 +65,14 @@ function Stat({ target, suffix, label }: { target: number; suffix: string; label
 
 export default function Hero() {
   const reduce = useReducedMotion()
+  const sectionRef = useRef<HTMLElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+  const photoScrollY = useTransform(scrollYProgress, [0, 1], [0, 160])
+  const textScrollY = useTransform(scrollYProgress, [0, 1], [0, 72])
+  const scrollFade = useTransform(scrollYProgress, [0, 0.7, 1], [1, 1, 0])
   const finePointer = useRef(false)
   const mx = useMotionValue(0)
   const my = useMotionValue(0)
@@ -88,14 +100,26 @@ export default function Hero() {
     <section
       id="about"
       data-section-index="0"
+      ref={sectionRef}
       className="relative bg-paper"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12 pt-24 md:pt-28">
+        {/* ── Open-to-work ribbon ──────────────────────── */}
+        <div className="mb-6 md:mb-8 flex items-center bg-accent text-paper px-4 py-1.5 rounded-sm">
+          <p className="label-mono !text-paper !text-[9px] sm:!text-[10px] flex items-center gap-2 no-underline">
+            <span aria-hidden="true">●</span>
+            <span>Open to work — Magang / Entry-level Web Developer</span>
+          </p>
+        </div>
+
         {/* ── Grid utama ─────────────────────────────── */}
         <div className="grid grid-cols-12 gap-6 md:gap-8 items-end">
-          <div className="col-span-12 lg:col-span-7 order-2 lg:order-1">
+          <motion.div
+            className="col-span-12 lg:col-span-7 order-2 lg:order-1"
+            style={reduce ? undefined : { y: textScrollY, opacity: scrollFade }}
+          >
             <motion.p
               className="label-mono"
               initial={{ opacity: 0, y: 10 }}
@@ -136,9 +160,12 @@ export default function Hero() {
             >
               Saya membangun produk web dari skema database sampai deploy — untuk pesantren, UMKM, dan siapa pun yang butuh situs yang benar-benar jalan.
             </motion.p>
-          </div>
+          </motion.div>
 
-          <div className="col-span-12 lg:col-span-5 order-1 lg:order-2 flex lg:justify-end lg:items-end">
+          <motion.div
+            className="col-span-12 lg:col-span-5 order-1 lg:order-2 flex lg:justify-end lg:items-end"
+            style={reduce ? undefined : { y: photoScrollY, opacity: scrollFade }}
+          >
             <motion.figure
               className="border border-ink bg-card rounded-2xl p-2 w-60 sm:w-72 lg:w-80 shadow-[6px_6px_0_rgba(28,26,23,0.12)]"
               style={{ rotate, x: photoX, y: photoY }}
@@ -158,15 +185,24 @@ export default function Hero() {
                 Potret — Rahmad Akbar
               </figcaption>
             </motion.figure>
-          </div>
+          </motion.div>
         </div>
 
         {/* ── Info terbitan ───────────────────────────── */}
         <div className="border-t border-b border-line mt-10 py-2.5 flex items-center justify-between gap-4">
-          <p className="label-mono !text-[9px] sm:!text-[10px]">N° 001 · Jember, Jawa Timur · Indonesia · Est. 2026</p>
-          <a href="#work" className="label-mono !text-[9px] sm:!text-[10px] text-accent hover:text-accent-deep transition-colors no-underline">
-            Lihat karya ↓
-          </a>
+          <p className="label-mono !text-[9px] sm:!text-[10px]">N° 001 · Jember, Jawa Timur · Indonesia</p>
+          <div className="flex items-center gap-3 sm:gap-5">
+            <a
+              href={personalInfo.cvDownload}
+              download
+              className="btn btn-ink !px-4 !py-2 !text-[9px] sm:!text-[10px] whitespace-nowrap"
+            >
+              Unduh CV ↓
+            </a>
+            <a href="#work" className="label-mono !text-[9px] sm:!text-[10px] text-accent hover:text-accent-deep transition-colors no-underline whitespace-nowrap">
+              Lihat karya ↓
+            </a>
+          </div>
         </div>
       </div>
 

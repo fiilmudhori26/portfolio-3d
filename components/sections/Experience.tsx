@@ -1,9 +1,28 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { experience, education, organization } from '@/lib/data'
+import { experience, education, organization, awards } from '@/lib/data'
 
 const EASE = [0.22, 1, 0.36, 1] as const
+
+function MedalIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.75}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className={className}
+    >
+      <circle cx="12" cy="9" r="5.5" />
+      <path d="M12 6.8v2.4l1.6 1" />
+      <path d="M8.8 13.2L6.5 21l5.5-2.6L17.5 21l-2.3-7.8" />
+    </svg>
+  )
+}
 
 function Row({ role, org, meta, detail }: { role: string; org: string; meta: string; detail?: string }) {
   return (
@@ -83,6 +102,28 @@ export default function Experience() {
                   detail={org.description}
                 />
               ))}
+            </div>
+            <div>
+              <p className="label-mono !text-[10px] mb-5">Prestasi &amp; Sertifikat</p>
+              <div className="space-y-3">
+                {awards.map((award) => (
+                  <div
+                    key={award.id}
+                    className="flex items-start gap-4 border border-line bg-card rounded-lg p-4"
+                  >
+                    <span className="mt-0.5 shrink-0 text-accent" aria-hidden="true">
+                      <MedalIcon className="h-6 w-6" />
+                    </span>
+                    <div>
+                      <h3 className="font-display font-bold text-base sm:text-lg text-ink leading-snug">
+                        {award.title}
+                      </h3>
+                      <p className="label-mono !text-[9px] mt-1">{award.issuer} · {award.date}</p>
+                      <p className="text-xs text-muted leading-relaxed mt-2">{award.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>

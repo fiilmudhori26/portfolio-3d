@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import MotionProvider from '@/components/MotionProvider'
+import CustomCursor from '@/components/CustomCursor'
 import { personalInfo } from '@/lib/data'
 
 const SITE_URL = 'https://portfolio-3d-tau-eight.vercel.app'
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="min-h-screen bg-paper text-ink antialiased selection:bg-accent/20 selection:text-ink">
         <MotionProvider>{children}</MotionProvider>
+        <CustomCursor />
       </body>
     </html>
   )

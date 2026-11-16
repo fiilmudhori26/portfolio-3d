@@ -53,7 +53,6 @@ export default function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <span className="label-mono !text-[10px] hidden sm:inline">Est. 2026</span>
           <a href="mailto:rahmad26akbar@gmail.com" className="btn btn-outline !py-2 !px-4 hidden sm:inline-flex">
             Book a Call
           </a>
