@@ -22,3 +22,6 @@ dist/
 tsconfig.tsbuildinfo
 
 .superpowers/
+
+.shots-backup/*
+!.shots-backup/demos/
