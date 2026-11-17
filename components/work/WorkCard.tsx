@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { useReducedMotion } from 'framer-motion'
 import type { projects } from '@/lib/data'
 
 type Project = (typeof projects)[number]
@@ -26,6 +27,7 @@ export interface WorkCardProps {
   active: boolean
   softBlur?: boolean
   shot: string
+  video?: string
   onActivate: () => void
   onOpenLive: () => void
 }
@@ -41,10 +43,14 @@ export default function WorkCard({
   active,
   softBlur = false,
   shot,
+  video,
   onActivate,
   onOpenLive,
 }: WorkCardProps) {
   const [imgError, setImgError] = useState(false)
+  const [videoFailed, setVideoFailed] = useState(false)
+  const reduceMotion = useReducedMotion()
+  const showVideo = Boolean(video) && !reduceMotion && !videoFailed
   const canLive = project.live !== '#'
   const liveHost = project.live.replace(/^https?:\/\//, '')
   const tabIndex = active ? 0 : -1
@@ -90,6 +96,21 @@ export default function WorkCard({
           <p className="font-display text-3xl font-black italic leading-[0.95] tracking-[-0.03em] text-paper">
             {project.title}
           </p>
+        </div>
+      ) : showVideo && video ? (
+        <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40">
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={shot}
+            aria-hidden="true"
+            className="h-full w-full object-cover object-top"
+            src={video}
+            onError={() => setVideoFailed(true)}
+          />
         </div>
       ) : (
         <div className="relative aspect-[16/10] w-full overflow-hidden bg-black/40">

@@ -21,6 +21,15 @@ const SHOTS: Record<string, string> = {
   'content-generator': '/shots/content-generator.png',
 }
 
+/* Video demo untuk proyek yang punya rekaman — menggantikan screenshot statis
+   di kartu (fallback ke shot bila prefers-reduced-motion). */
+const VIDEOS: Record<string, string> = {
+  'simulasi-cpns': '/demos/simulasi-cpns.webm',
+  'tpq-finance': '/demos/tpq-finance.webm',
+  'photo-booth': '/demos/photo-booth.webm',
+  'content-generator': '/demos/content-generator.webm',
+}
+
 /* Kartu tipografis untuk proyek tanpa screenshot */
 const TYPE_CARDS: Record<string, { monogram: string; accentLine: string }> = {
   jobflow: { monogram: 'JF', accentLine: 'NEXT.JS · PRISMA · NEXTAUTH' },
@@ -180,7 +189,10 @@ export default function GlassCarousel({ items }: { items: Project[] }) {
       onOpenLive: () => openLive(p),
     }
     const shot = SHOTS[p.id]
-    if (shot) return <WorkCard key={p.id} {...shared} shot={shot} />
+    if (shot) {
+      const video = Math.abs(i - index) <= 1 ? VIDEOS[p.id] : undefined
+      return <WorkCard key={p.id} {...shared} shot={shot} video={video} />
+    }
     const type = TYPE_CARDS[p.id] ?? {
       monogram: p.title.slice(0, 2).toUpperCase(),
       accentLine: p.tech.slice(0, 3).join(' · ').toUpperCase(),
