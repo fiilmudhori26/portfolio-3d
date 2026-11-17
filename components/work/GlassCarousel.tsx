@@ -208,7 +208,7 @@ export default function GlassCarousel({ items }: { items: Project[] }) {
             ref={scrollRef}
             onScroll={handleMobileScroll}
             className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-[9vw] pb-1 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            style={{ touchAction: 'pan-y' }}
+            style={{ touchAction: 'pan-x pan-y' }}
           >
             {items.map((p, i) => (
               <div key={p.id} className="w-[82vw] shrink-0 snap-center">
